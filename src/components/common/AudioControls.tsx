@@ -68,35 +68,30 @@ export function AudioControls({
       </Button>
 
       {/* Volume Slider */}
-      {showVolumeSlider && !isMuted && (
-        <div className="flex items-center gap-2 min-w-[80px]">
+      {showVolumeSlider && (
+        <div className="flex items-center gap-2 min-w-[120px]">
           <input
             type="range"
             min="0"
             max="1"
             step="0.1"
-            value={masterVolume}
+            value={isMuted ? 0 : masterVolume}
             onChange={handleVolumeChange}
-            className="w-16 sm:w-20 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer
-                       [&::-webkit-slider-thumb]:appearance-none
-                       [&::-webkit-slider-thumb]:w-4
-                       [&::-webkit-slider-thumb]:h-4
-                       [&::-webkit-slider-thumb]:rounded-full
-                       [&::-webkit-slider-thumb]:bg-blue-600
-                       [&::-webkit-slider-thumb]:cursor-pointer
-                       [&::-webkit-slider-thumb]:shadow-lg
-                       [&::-webkit-slider-thumb]:transition-all
-                       [&::-webkit-slider-thumb]:hover:bg-blue-700
-                       [&::-moz-range-thumb]:w-4
-                       [&::-moz-range-thumb]:h-4
-                       [&::-moz-range-thumb]:rounded-full
-                       [&::-moz-range-thumb]:bg-blue-600
-                       [&::-moz-range-thumb]:cursor-pointer
-                       [&::-moz-range-thumb]:border-0"
+            disabled={isMuted}
+            className={`volume-slider w-20 sm:w-24 h-2 rounded-lg cursor-pointer transition-opacity ${
+              isMuted ? 'opacity-50 cursor-not-allowed' : 'opacity-100'
+            }`}
             aria-label="Master volume"
+            style={{
+              background: isMuted 
+                ? `linear-gradient(to right, #94a3b8 0%, #94a3b8 100%)`
+                : `linear-gradient(to right, #2563eb 0%, #2563eb ${masterVolume * 100}%, #cbd5e1 ${masterVolume * 100}%, #cbd5e1 100%)`
+            }}
           />
-          <span className="text-xs text-slate-600 min-w-[2.5rem] text-right">
-            {Math.round(masterVolume * 100)}%
+          <span className={`text-xs font-medium min-w-[2.5rem] text-right ${
+            isMuted ? 'text-slate-400' : 'text-blue-600'
+          }`}>
+            {isMuted ? 'Muted' : `${Math.round(masterVolume * 100)}%`}
           </span>
         </div>
       )}
