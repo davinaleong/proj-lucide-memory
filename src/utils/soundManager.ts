@@ -5,6 +5,7 @@ export type SoundType =
   | 'matchSuccess' 
   | 'matchFail' 
   | 'levelComplete' 
+  | 'gameOver'
   | 'buttonClick' 
   | 'backgroundMusic';
 
@@ -28,27 +29,32 @@ class SoundManager {
   private initializeSounds() {
     const soundConfigs: Record<SoundType, SoundConfig> = {
       cardFlip: {
-        src: ['/sounds/card-flip.mp3', '/sounds/card-flip.webm'],
+        src: ['/sounds/card-flip.mp3'],
         volume: 0.3,
         preload: true
       },
       matchSuccess: {
-        src: ['/sounds/match-success.mp3', '/sounds/match-success.webm'],
+        src: ['/sounds/match-success.mp3'],
         volume: 0.5,
         preload: true
       },
       matchFail: {
-        src: ['/sounds/match-fail.mp3', '/sounds/match-fail.webm'],
+        src: ['/sounds/match-fail.mp3'],
         volume: 0.4,
         preload: true
       },
       levelComplete: {
-        src: ['/sounds/level-complete.mp3', '/sounds/level-complete.webm'],
+        src: ['/sounds/level-completed.mp3'],
         volume: 0.8,
         preload: true
       },
+      gameOver: {
+        src: ['/sounds/game-over.mp3'],
+        volume: 0.7,
+        preload: true
+      },
       buttonClick: {
-        src: ['/sounds/button-click.mp3', '/sounds/button-click.webm'],
+        src: ['/sounds/click.mp3'],
         volume: 0.3,
         preload: true
       },
@@ -124,6 +130,7 @@ class SoundManager {
       matchSuccess: 0.5,
       matchFail: 0.4,
       levelComplete: 0.8,
+      gameOver: 0.7,
       buttonClick: 0.3,
       backgroundMusic: 0.2
     };

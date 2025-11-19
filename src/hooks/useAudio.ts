@@ -136,6 +136,7 @@ export function useGameAudio() {
   const playMatchSuccess = useCallback(() => audio.play('matchSuccess'), [audio]);
   const playMatchFail = useCallback(() => audio.play('matchFail'), [audio]);
   const playLevelComplete = useCallback(() => audio.play('levelComplete'), [audio]);
+  const playGameOver = useCallback(() => audio.play('gameOver'), [audio]);
   const playButtonClick = useCallback(() => audio.play('buttonClick'), [audio]);
 
   return {
@@ -144,6 +145,7 @@ export function useGameAudio() {
     playMatchSuccess,
     playMatchFail,
     playLevelComplete,
+    playGameOver,
     playButtonClick
   };
 }
