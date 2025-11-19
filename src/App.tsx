@@ -1,35 +1,115 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import { WelcomeScreen, PlayerDashboard, GameScreen } from './components';
+import { useGameLogic } from './hooks';
+import './App.css';
+
+type GameView = 'welcome' | 'dashboard' | 'game';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentView, setCurrentView] = useState<GameView>('welcome');
+  const [showPauseModal, setShowPauseModal] = useState(false);
+  const [showCompletionModal, setShowCompletionModal] = useState(false);
+  
+  const {
+    gameState,
+    playerProgress,
+    startGame,
+    handleCardClick,
+    pauseGame,
+    resumeGame,
+    getLevelConfig
+  } = useGameLogic();
+
+  // Navigation handlers
+  const handleStart = () => {
+    if (playerProgress?.hasPlayed) {
+      setCurrentView('dashboard');
+    } else {
+      startGame(1);
+      setCurrentView('game');
+    }
+  };
+
+  const handleContinue = () => {
+    startGame(playerProgress?.highestLevel || 1);
+    setCurrentView('game');
+  };
+
+  const handleNewGame = () => {
+    startGame(1);
+    setCurrentView('game');
+  };
+
+  const handleHome = () => {
+    setCurrentView('welcome');
+    setShowPauseModal(false);
+    setShowCompletionModal(false);
+  };
+
+  const handlePause = () => {
+    pauseGame();
+    setShowPauseModal(true);
+  };
+
+  const handleResume = () => {
+    resumeGame();
+    setShowPauseModal(false);
+  };
+
+  const handleNextLevel = () => {
+    const nextLevel = gameState.currentLevel + 1;
+    startGame(nextLevel);
+    setShowCompletionModal(false);
+  };
+
+  const handlePlayAgain = () => {
+    startGame(gameState.currentLevel);
+    setShowCompletionModal(false);
+  };
+
+  // Handle game completion
+  React.useEffect(() => {
+    if (gameState.gameStatus === 'completed') {
+      setShowCompletionModal(true);
+    }
+  }, [gameState.gameStatus]);
+
+  // Get current level configuration
+  const levelConfig = getLevelConfig(gameState.currentLevel);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App font-montserrat">
+      {currentView === 'welcome' && (
+        <WelcomeScreen
+          playerProgress={playerProgress}
+          onStart={handleStart}
+        />
+      )}
+      
+      {currentView === 'dashboard' && playerProgress && (
+        <PlayerDashboard
+          playerProgress={playerProgress}
+          onContinue={handleContinue}
+          onNewGame={handleNewGame}
+        />
+      )}
+      
+      {currentView === 'game' && (
+        <GameScreen
+          gameState={gameState}
+          gridCols={levelConfig.gridCols}
+          onCardClick={handleCardClick}
+          onPause={handlePause}
+          onHome={handleHome}
+          onResume={handleResume}
+          showPauseModal={showPauseModal}
+          showCompletionModal={showCompletionModal}
+          onNextLevel={handleNextLevel}
+          onPlayAgain={handlePlayAgain}
+        />
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
