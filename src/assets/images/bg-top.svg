@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="visual" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 900 600">
+  <!-- Generator: Adobe Illustrator 30.0.0, SVG Export Plug-In . SVG Version: 2.1.1 Build 123)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #0063f0;
+      }
+
+      .st1 {
+        fill: #1447e6;
+      }
+
+      .st2 {
+        fill: #00a6f4;
+      }
+
+      .st3 {
+        fill: #fff;
+      }
+
+      .st4 {
+        fill: #007cf6;
+      }
+
+      .st5 {
+        fill: #0092f8;
+      }
+    </style>
+  </defs>
+  <rect class="st3" y="1" width="900" height="600" transform="translate(900 602) rotate(180)"/>
+  <path class="st2" d="M900,197l-129,42-128-22-129,3-128-67-129,26-128-3L0,232V0h900v197Z"/>
+  <path class="st5" d="M900,148l-129,10-128-5-129-11-128-11-129,30-128,24L0,196V0h900v148Z"/>
+  <path class="st4" d="M900,144l-129-29-128,41-129-3-128,3-129-1-128-30H0V0h900v144Z"/>
+  <path class="st0" d="M900,119l-129-24-128-27-129,15-128-17-129,36-128-22L0,93V0h900v119Z"/>
+  <path class="st1" d="M900,58l-129-1-128-24-129,30-128-35-129,22-128-6L0,38V0h900v58Z"/>
+</svg>
