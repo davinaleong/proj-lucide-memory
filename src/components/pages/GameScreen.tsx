@@ -37,46 +37,49 @@ export const GameScreen: React.FC<GameScreenProps> = ({
   const isGameDisabled = gameState.gameStatus !== 'playing';
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
-      {/* Game Header */}
-      <GameHeader
-        level={gameState.currentLevel}
-        score={gameState.score}
-        moves={gameState.moves}
-        timeElapsed={gameState.timeElapsed}
-      />
-      
-      {/* Main Game Area */}
-      <div className="flex-1 flex flex-col">
-        {/* Controls */}
-        <div className="bg-white border-b border-gray-300 p-4">
-          <div className="max-w-4xl mx-auto flex justify-between items-center">
+    <div className="min-h-screen bg-gray-100 flex items-start justify-center">
+      <div className="w-full w-sm max-w-md min-h-screen bg-white flex flex-col">
+        {/* Game Header */}
+        <GameHeader
+          level={gameState.currentLevel}
+          score={gameState.score}
+          moves={gameState.moves}
+          timeElapsed={gameState.timeElapsed}
+        />
+        
+        {/* Main Game Area */}
+        <div className="flex-1 flex flex-col">
+          {/* Controls */}
+          <div className="bg-white border-b border-gray-300 p-2 sm:p-4">
+            <div className="flex justify-between items-center">
             <Button
               onClick={onHome}
               variant="outline"
-              className="flex items-center space-x-2"
+              size="sm"
+              className="flex items-center space-x-1"
             >
-              <Home className="w-4 h-4" />
-              <span>Home</span>
+              <Home className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">Home</span>
             </Button>
             
-            <h2 className="text-xl font-montserrat font-bold text-black">
+            <h2 className="text-lg sm:text-xl font-montserrat font-bold text-black">
               Level {gameState.currentLevel}
             </h2>
             
             <Button
               onClick={onPause}
               variant="outline"
-              className="flex items-center space-x-2"
+              size="sm"
+              className="flex items-center space-x-1"
             >
-              <Pause className="w-4 h-4" />
-              <span>Pause</span>
+              <Pause className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">Pause</span>
             </Button>
           </div>
         </div>
-        
-        {/* Card Grid */}
-        <div className="flex-1 flex items-center justify-center p-4">
+          
+          {/* Card Grid */}
+          <div className="flex-1 flex items-center justify-center p-4">
           <CardGrid
             cards={gameState.cards}
             onCardClick={onCardClick}
@@ -84,15 +87,16 @@ export const GameScreen: React.FC<GameScreenProps> = ({
             gridCols={gridCols}
           />
         </div>
-        
-        {/* Progress Section */}
-        <div className="bg-white border-t-2 border-black p-6">
-          <div className="max-w-2xl mx-auto">
-            <ProgressBar
-              current={matchedPairs}
-              total={totalPairs}
-              label="Progress"
-            />
+          
+          {/* Progress Section */}
+          <div className="bg-white border-t-2 border-black p-3 sm:p-6">
+            <div className="">
+              <ProgressBar
+                current={matchedPairs}
+                total={totalPairs}
+                label="Progress"
+              />
+            </div>
           </div>
         </div>
       </div>

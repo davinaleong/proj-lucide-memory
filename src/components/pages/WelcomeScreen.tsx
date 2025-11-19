@@ -14,21 +14,21 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
   const isReturningPlayer = playerProgress?.hasPlayed;
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-8 text-center border-2 border-black">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-2 sm:p-4">
+      <div className="bg-white rounded-lg shadow-xl min-w-sm max-w-md w-full p-4 sm:p-8 text-center border-2 border-black">
         {/* Title */}
-        <h1 className="text-4xl font-montserrat font-bold text-black mb-6">
+        <h1 className="text-3xl sm:text-4xl font-montserrat font-bold text-black mb-4 sm:mb-6">
           Lucide Memory
         </h1>
         
         {/* Welcome Message */}
-        <div className="mb-8">
+        <div className="mb-4">
           {isReturningPlayer ? (
             <div>
-              <h2 className="text-xl font-montserrat font-medium text-black mb-4">
+              <h2 className="text-lg sm:text-xl font-montserrat font-medium text-black mb-3 sm:mb-4">
                 Welcome back, Memory Master!
               </h2>
-              <p className="text-gray-600 font-montserrat">
+              <p className="text-sm sm:text-base text-gray-600 font-montserrat">
                 Ready to continue your journey?
               </p>
             </div>

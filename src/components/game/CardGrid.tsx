@@ -18,7 +18,8 @@ export const CardGrid: React.FC<CardGridProps> = ({
   return (
     <div 
       className={`
-        grid gap-3 w-full max-w-2xl mx-auto p-4
+        grid gap-2 w-full p-2
+        sm:gap-3 sm:p-4
       `}
       style={{
         gridTemplateColumns: `repeat(${gridCols}, 1fr)`

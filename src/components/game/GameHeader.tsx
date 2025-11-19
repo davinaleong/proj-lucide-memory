@@ -28,17 +28,17 @@ export const GameHeader: React.FC<GameHeaderProps> = ({
   ];
 
   return (
-    <div className="bg-white border-b-2 border-black p-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div className="bg-white border-b-2 border-black p-2 sm:p-4">
+      <div className="">
+        <div className="grid grid-cols-2 gap-2 sm:gap-4">
           {statItems.map(({ icon: Icon, label, value }) => (
-            <div key={label} className="flex items-center space-x-2 bg-gray-100 rounded-lg p-3">
-              <Icon className="w-5 h-5 text-black" />
+            <div key={label} className="flex items-center space-x-1 sm:space-x-2 bg-gray-100 rounded-lg p-2 sm:p-3">
+              <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-black" />
               <div>
                 <div className="text-xs font-montserrat text-gray-600 uppercase tracking-wide">
                   {label}
                 </div>
-                <div className="text-lg font-montserrat font-bold text-black">
+                <div className="text-sm sm:text-lg font-montserrat font-bold text-black">
                   {value}
                 </div>
               </div>

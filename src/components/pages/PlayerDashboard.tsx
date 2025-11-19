@@ -21,15 +21,15 @@ export const PlayerDashboard: React.FC<PlayerDashboardProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-xl max-w-lg w-full p-8 border-2 border-black">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-2 sm:p-4">
+      <div className="bg-white rounded-lg shadow-xl min-w-sm max-w-md w-full p-4 sm:p-8 border-2 border-black">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-montserrat font-bold text-black mb-2">
-            Player Dashboard
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-montserrat font-bold text-black mb-2">
+            Dashboard
           </h1>
-          <p className="text-gray-600 font-montserrat">
-            Your memory mastery progress
+          <p className="text-sm sm:text-base text-gray-600 font-montserrat">
+            Your memory progress
           </p>
         </div>
         

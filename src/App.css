@@ -1,9 +1,12 @@
-/* Lucide Memory Game Styles */
+/* Lucide Memory Game Styles - Mobile Optimized */
 
 .App {
-  /* Ensure the app takes full viewport */
+  /* Mobile-first design with responsive constraints */
   min-height: 100vh;
+  min-width: 320px;  /* Minimum for smallest mobile devices */
+  max-width: 480px;  /* Maximum for optimal mobile experience */
   width: 100%;
+  margin: 0 auto;    /* Center on larger screens */
 }
 
 /* Custom scrollbar styling */
@@ -60,16 +63,34 @@
   animation: slideIn 0.3s ease-out;
 }
 
-/* Responsive utilities */
-@media (max-width: 640px) {
+/* Mobile-specific responsive utilities */
+@media (max-width: 480px) {
   .App {
     font-size: 14px;
+    padding: 0.5rem;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 360px) {
   .App {
     font-size: 12px;
+    padding: 0.25rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .App {
+    font-size: 11px;
+    padding: 0.125rem;
+  }
+}
+
+/* Tablet and larger screens */
+@media (min-width: 481px) {
+  .App {
+    border-radius: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
   }
 }
 
