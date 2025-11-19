@@ -8,18 +8,24 @@ afterEach(() => {
 });
 
 // Mock Howler.js for tests
+class MockHowl {
+  play = vi.fn();
+  stop = vi.fn();
+  pause = vi.fn();
+  resume = vi.fn();
+  volume = vi.fn();
+  playing = vi.fn().mockReturnValue(false);
+  unload = vi.fn();
+  on = vi.fn();
+  off = vi.fn();
+  
+  constructor() {
+    // Mock constructor
+  }
+}
+
 vi.mock('howler', () => ({
-  Howl: vi.fn().mockImplementation(() => ({
-    play: vi.fn(),
-    stop: vi.fn(),
-    pause: vi.fn(),
-    resume: vi.fn(),
-    volume: vi.fn(),
-    playing: vi.fn().mockReturnValue(false),
-    unload: vi.fn(),
-    on: vi.fn(),
-    off: vi.fn(),
-  })),
+  Howl: MockHowl,
 }));
 
 // Mock localStorage
