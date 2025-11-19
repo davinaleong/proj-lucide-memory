@@ -15,10 +15,11 @@ export interface AudioControls {
   toggleMute: () => void;
   isMuted: boolean;
   masterVolume: number;
-  playBackgroundMusic: () => void;
+  playBackgroundMusic: () => Promise<void>;
   stopBackgroundMusic: () => void;
   pauseBackgroundMusic: () => void;
   resumeBackgroundMusic: () => void;
+  isBackgroundMusicPlaying: () => boolean;
 }
 
 export function useAudio(): AudioControls {
@@ -87,7 +88,7 @@ export function useAudio(): AudioControls {
   }, []);
 
   const playBackgroundMusic = useCallback(() => {
-    soundManager.playBackgroundMusic();
+    return soundManager.playBackgroundMusic();
   }, []);
 
   const stopBackgroundMusic = useCallback(() => {
@@ -100,6 +101,10 @@ export function useAudio(): AudioControls {
 
   const resumeBackgroundMusic = useCallback(() => {
     soundManager.resumeBackgroundMusic();
+  }, []);
+
+  const isBackgroundMusicPlaying = useCallback(() => {
+    return soundManager.isBackgroundMusicPlaying();
   }, []);
 
   return {
@@ -118,7 +123,8 @@ export function useAudio(): AudioControls {
     playBackgroundMusic,
     stopBackgroundMusic,
     pauseBackgroundMusic,
-    resumeBackgroundMusic
+    resumeBackgroundMusic,
+    isBackgroundMusicPlaying
   };
 }
 

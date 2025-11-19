@@ -53,10 +53,14 @@ class SoundManager {
         preload: true
       },
       backgroundMusic: {
-        src: ['/sounds/background-music.mp3', '/sounds/background-music.webm'],
+        src: [
+          '/sounds/Steady-Focus_AdobeStock_1801511466.wav',
+          '/sounds/Calm-Beauty_AdobeStock_1773129888.wav', 
+          '/sounds/Easy-Vibes_AdobeStock_1773129821.wav'
+        ],
         volume: 0.2,
         loop: true,
-        preload: false // Load on demand
+        preload: true // Preload background music for auto-play
       }
     };
 
@@ -68,6 +72,7 @@ class SoundManager {
         loop: config.loop || false,
         preload: config.preload || true,
         html5: soundType === 'backgroundMusic', // Use HTML5 for long audio
+        format: soundType === 'backgroundMusic' ? ['wav'] : undefined, // Specify WAV format for background music
         onloaderror: (_, error) => {
           console.warn(`Failed to load sound: ${soundType}`, error);
         },
@@ -203,10 +208,55 @@ class SoundManager {
   }
 
   // Background music specific methods
-  playBackgroundMusic(): void {
-    if (!this.isMuted) {
-      this.play('backgroundMusic');
-    }
+  playBackgroundMusic(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (this.isMuted) {
+        resolve();
+        return;
+      }
+
+      const sound = this.sounds.get('backgroundMusic');
+      if (sound) {
+        // Check if already playing
+        if (sound.playing()) {
+          resolve();
+          return;
+        }
+
+        // Set up success/error handlers
+        const onPlay = () => {
+          sound.off('play', onPlay);
+          sound.off('playerror', onError);
+          console.log('Background music started successfully');
+          resolve();
+        };
+
+        const onError = (error: unknown) => {
+          sound.off('play', onPlay);
+          sound.off('playerror', onError);
+          console.warn('Failed to play background music:', error);
+          reject(new Error('Failed to play background music'));
+        };
+
+        sound.on('play', onPlay);
+        sound.on('playerror', onError);
+        
+        try {
+          const playId = sound.play();
+          if (playId === undefined) {
+            sound.off('play', onPlay);
+            sound.off('playerror', onError);
+            reject(new Error('Failed to start background music'));
+          }
+        } catch (error) {
+          sound.off('play', onPlay);
+          sound.off('playerror', onError);
+          reject(error);
+        }
+      } else {
+        reject(new Error('Background music sound not found'));
+      }
+    });
   }
 
   stopBackgroundMusic(): void {
@@ -219,6 +269,11 @@ class SoundManager {
 
   resumeBackgroundMusic(): void {
     this.resume('backgroundMusic');
+  }
+
+  isBackgroundMusicPlaying(): boolean {
+    const sound = this.sounds.get('backgroundMusic');
+    return sound ? sound.playing() : false;
   }
 
   // Cleanup method
