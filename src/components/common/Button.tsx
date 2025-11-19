@@ -20,9 +20,14 @@ export const Button: React.FC<ButtonProps> = ({
   const baseClasses = 'font-montserrat font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
   
   const variantClasses = {
-    primary: 'bg-black text-white hover:bg-gray-800 focus:ring-gray-500',
-    secondary: 'bg-gray-200 text-black hover:bg-gray-300 focus:ring-gray-400',
-    outline: 'border-2 border-black text-black hover:bg-black hover:text-white focus:ring-gray-500'
+    primary: 'text-white shadow-lg transform hover:scale-105 active:scale-95' + 
+             ' bg-gradient-to-r from-blue via-sky-blue to-dark-blue' +
+             ' hover:from-dark-blue hover:via-blue hover:to-sky-blue' +
+             ' focus:ring-blue focus:ring-opacity-50',
+    secondary: 'bg-slate text-dark-blue border-2 border-slate-200' +
+              ' hover:bg-slate-200 hover:border-blue focus:ring-blue focus:ring-opacity-30',
+    outline: 'border-2 border-blue text-blue hover:bg-blue hover:text-white' +
+            ' focus:ring-blue focus:ring-opacity-50 transform hover:scale-105 active:scale-95'
   };
   
   const sizeClasses = {

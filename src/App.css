@@ -1,5 +1,23 @@
 /* Lucide Memory Game Styles - Mobile Optimized */
 
+:root {
+  /* Color Palette */
+  --color-blue: #2B7FFF;
+  --color-dark-blue: #1447E6;
+  --color-sky-blue: #00A6F4;
+  --color-slate: #F1F5F9;
+  --color-slate-200: #e2e8f0;
+  --color-orange: #FF6900;
+  
+  /* Semantic Colors */
+  --color-primary: var(--color-blue);
+  --color-primary-dark: var(--color-dark-blue);
+  --color-accent: var(--color-sky-blue);
+  --color-warning: var(--color-orange);
+  --color-background: var(--color-slate);
+  --color-surface: var(--color-slate-200);
+}
+
 .App {
   /* Mobile-first design with responsive constraints */
   min-height: 100vh;
@@ -7,6 +25,7 @@
   max-width: 480px;  /* Maximum for optimal mobile experience */
   width: 100%;
   margin: 0 auto;    /* Center on larger screens */
+  background: linear-gradient(135deg, var(--color-background) 0%, var(--color-surface) 100%);
 }
 
 /* Custom scrollbar styling */

@@ -28,17 +28,22 @@ export const GameHeader: React.FC<GameHeaderProps> = ({
   ];
 
   return (
-    <div className="bg-white border-b-2 border-black p-2 sm:p-4">
+    <div className="bg-gradient-to-r from-slate via-white to-slate-200 border-b-2 border-blue p-2 sm:p-4 shadow-lg">
       <div className="">
         <div className="grid grid-cols-2 gap-2 sm:gap-4">
           {statItems.map(({ icon: Icon, label, value }) => (
-            <div key={label} className="flex items-center space-x-1 sm:space-x-2 bg-gray-100 rounded-lg p-2 sm:p-3">
-              <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-black" />
+            <div key={label} className="flex items-center space-x-1 sm:space-x-2 bg-gradient-to-br from-white to-slate rounded-xl p-2 sm:p-3 border border-blue shadow-md">
+              <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${
+                label === 'Level' ? 'text-blue' :
+                label === 'Score' ? 'text-orange' :
+                label === 'Moves' ? 'text-sky-blue' :
+                'text-dark-blue'
+              }`} />
               <div>
-                <div className="text-xs font-montserrat text-gray-600 uppercase tracking-wide">
+                <div className="text-xs font-montserrat text-blue uppercase tracking-wide">
                   {label}
                 </div>
-                <div className="text-sm sm:text-lg font-montserrat font-bold text-black">
+                <div className="text-sm sm:text-lg font-montserrat font-bold text-dark-blue">
                   {value}
                 </div>
               </div>

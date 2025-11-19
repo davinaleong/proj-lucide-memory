@@ -21,56 +21,56 @@ export const PlayerDashboard: React.FC<PlayerDashboardProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-2 sm:p-4">
-      <div className="bg-white rounded-lg shadow-xl min-w-sm max-w-md w-full p-4 sm:p-8 border-2 border-black">
+    <div className="min-h-screen flex items-center justify-center p-2 sm:p-4">
+      <div className="bg-white rounded-xl shadow-2xl min-w-sm max-w-md w-full p-4 sm:p-8 border-2 border-blue backdrop-blur-sm">
         {/* Header */}
         <div className="text-center mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl font-montserrat font-bold text-black mb-2">
+          <h1 className="text-2xl sm:text-3xl font-montserrat font-bold bg-gradient-to-r from-blue via-dark-blue to-sky-blue bg-clip-text text-transparent mb-2">
             Dashboard
           </h1>
-          <p className="text-sm sm:text-base text-gray-600 font-montserrat">
+          <p className="text-sm sm:text-base text-blue font-montserrat">
             Your memory progress
           </p>
         </div>
         
         {/* Stats Grid */}
         <div className="grid grid-cols-2 gap-4 mb-8">
-          <div className="bg-gray-100 rounded-lg p-4 text-center border border-gray-300">
-            <Target className="w-8 h-8 text-black mx-auto mb-2" />
-            <div className="text-2xl font-montserrat font-bold text-black">
+          <div className="bg-gradient-to-br from-slate to-slate-200 rounded-xl p-4 text-center border-2 border-blue shadow-lg transform hover:scale-105 transition-transform">
+            <Target className="w-8 h-8 text-blue mx-auto mb-2" />
+            <div className="text-2xl font-montserrat font-bold text-dark-blue">
               {playerProgress.highestLevel}
             </div>
-            <div className="text-sm font-montserrat text-gray-600">
+            <div className="text-sm font-montserrat text-blue">
               Highest Level
             </div>
           </div>
           
-          <div className="bg-gray-100 rounded-lg p-4 text-center border border-gray-300">
-            <Trophy className="w-8 h-8 text-black mx-auto mb-2" />
-            <div className="text-2xl font-montserrat font-bold text-black">
+          <div className="bg-gradient-to-br from-slate to-slate-200 rounded-xl p-4 text-center border-2 border-orange shadow-lg transform hover:scale-105 transition-transform">
+            <Trophy className="w-8 h-8 text-orange mx-auto mb-2" />
+            <div className="text-2xl font-montserrat font-bold text-dark-blue">
               {playerProgress.bestScore.toLocaleString()}
             </div>
-            <div className="text-sm font-montserrat text-gray-600">
+            <div className="text-sm font-montserrat text-blue">
               Best Score
             </div>
           </div>
           
-          <div className="bg-gray-100 rounded-lg p-4 text-center border border-gray-300">
-            <Play className="w-8 h-8 text-black mx-auto mb-2" />
-            <div className="text-2xl font-montserrat font-bold text-black">
+          <div className="bg-gradient-to-br from-slate to-slate-200 rounded-xl p-4 text-center border-2 border-sky-blue shadow-lg transform hover:scale-105 transition-transform">
+            <Play className="w-8 h-8 text-sky-blue mx-auto mb-2" />
+            <div className="text-2xl font-montserrat font-bold text-dark-blue">
               {playerProgress.totalGamesPlayed}
             </div>
-            <div className="text-sm font-montserrat text-gray-600">
+            <div className="text-sm font-montserrat text-blue">
               Games Played
             </div>
           </div>
           
-          <div className="bg-gray-100 rounded-lg p-4 text-center border border-gray-300">
-            <Clock className="w-8 h-8 text-black mx-auto mb-2" />
-            <div className="text-2xl font-montserrat font-bold text-black">
+          <div className="bg-gradient-to-br from-slate to-slate-200 rounded-xl p-4 text-center border-2 border-blue shadow-lg transform hover:scale-105 transition-transform">
+            <Clock className="w-8 h-8 text-blue mx-auto mb-2" />
+            <div className="text-2xl font-montserrat font-bold text-dark-blue">
               {formatTime(playerProgress.averageTime)}
             </div>
-            <div className="text-sm font-montserrat text-gray-600">
+            <div className="text-sm font-montserrat text-blue">
               Avg. Time
             </div>
           </div>
@@ -98,12 +98,12 @@ export const PlayerDashboard: React.FC<PlayerDashboardProps> = ({
         
         {/* Progress Indicator */}
         <div className="mt-6 text-center">
-          <div className="text-sm font-montserrat text-gray-500 mb-2">
+          <div className="text-sm font-montserrat text-blue mb-2">
             Ready for Level {playerProgress.highestLevel + 1}?
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2 border border-gray-300">
+          <div className="w-full bg-slate-200 rounded-full h-3 border-2 border-blue shadow-inner">
             <div 
-              className="h-full bg-black rounded-full" 
+              className="h-full bg-gradient-to-r from-blue via-sky-blue to-dark-blue rounded-full transition-all duration-500 shadow-lg" 
               style={{ width: `${Math.min((playerProgress.highestLevel / 10) * 100, 100)}%` }}
             ></div>
           </div>

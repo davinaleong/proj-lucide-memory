@@ -14,10 +14,10 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
   const isReturningPlayer = playerProgress?.hasPlayed;
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-2 sm:p-4">
-      <div className="bg-white rounded-lg shadow-xl min-w-sm max-w-md w-full p-4 sm:p-8 text-center border-2 border-black">
+    <div className="min-h-screen flex items-center justify-center p-2 sm:p-4">
+      <div className="bg-white rounded-xl shadow-2xl min-w-sm max-w-md w-full p-4 sm:p-8 text-center border-2 border-blue backdrop-blur-sm">
         {/* Title */}
-        <h1 className="text-3xl sm:text-4xl font-montserrat font-bold text-black mb-4 sm:mb-6">
+        <h1 className="text-3xl sm:text-4xl font-montserrat font-bold bg-gradient-to-r from-blue via-dark-blue to-sky-blue bg-clip-text text-transparent mb-4 sm:mb-6">
           Lucide Memory
         </h1>
         
@@ -25,22 +25,22 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
         <div className="mb-4">
           {isReturningPlayer ? (
             <div>
-              <h2 className="text-lg sm:text-xl font-montserrat font-medium text-black mb-3 sm:mb-4">
+              <h2 className="text-lg sm:text-xl font-montserrat font-medium text-dark-blue mb-3 sm:mb-4">
                 Welcome back, Memory Master!
               </h2>
-              <p className="text-sm sm:text-base text-gray-600 font-montserrat">
+              <p className="text-sm sm:text-base text-blue font-montserrat">
                 Ready to continue your journey?
               </p>
             </div>
           ) : (
             <div>
-              <h2 className="text-xl font-montserrat font-medium text-black mb-4">
+              <h2 className="text-xl font-montserrat font-medium text-dark-blue mb-4">
                 Welcome to Lucide Memory!
               </h2>
-              <p className="text-gray-600 font-montserrat mb-2">
+              <p className="text-blue font-montserrat mb-2">
                 Test your memory skills by matching pairs of cards.
               </p>
-              <p className="text-gray-600 font-montserrat">
+              <p className="text-blue font-montserrat">
                 Start with easy levels and progress to more challenging ones!
               </p>
             </div>
@@ -58,9 +58,9 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
         
         {/* Decorative Elements */}
         <div className="mt-8 flex justify-center space-x-2">
-          <div className="w-3 h-3 bg-black rounded-full"></div>
-          <div className="w-3 h-3 bg-gray-400 rounded-full"></div>
-          <div className="w-3 h-3 bg-black rounded-full"></div>
+          <div className="w-3 h-3 bg-gradient-to-r from-blue to-dark-blue rounded-full animate-pulse"></div>
+          <div className="w-3 h-3 bg-gradient-to-r from-sky-blue to-blue rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
+          <div className="w-3 h-3 bg-gradient-to-r from-orange to-blue rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
         </div>
       </div>
     </div>

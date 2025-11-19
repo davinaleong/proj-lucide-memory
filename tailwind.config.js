@@ -17,6 +17,18 @@ export default {
         'slate-200': '#e2e8f0',
         'orange': '#FF6900',
       },
+      animation: {
+        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'bounce-slow': 'bounce 2s infinite',
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      },
+      boxShadow: {
+        'game': '0 10px 25px rgba(43, 127, 255, 0.2)',
+        'card': '0 4px 15px rgba(43, 127, 255, 0.3)',
+      }
     },
   },
   plugins: [],

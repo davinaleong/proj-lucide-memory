@@ -50,7 +50,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
         {/* Main Game Area */}
         <div className="flex-1 flex flex-col">
           {/* Controls */}
-          <div className="bg-white border-b border-gray-300 p-2 sm:p-4">
+          <div className="bg-gradient-to-r from-slate via-white to-slate-200 border-b-2 border-blue p-2 sm:p-4 shadow-lg">
             <div className="flex justify-between items-center">
             <Button
               onClick={onHome}
@@ -62,7 +62,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
               <span className="hidden sm:inline">Home</span>
             </Button>
             
-            <h2 className="text-lg sm:text-xl font-montserrat font-bold text-black">
+            <h2 className="text-lg sm:text-xl font-montserrat font-bold bg-gradient-to-r from-blue to-dark-blue bg-clip-text text-transparent">
               Level {gameState.currentLevel}
             </h2>
             
@@ -89,7 +89,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
         </div>
           
           {/* Progress Section */}
-          <div className="bg-white border-t-2 border-black p-3 sm:p-6">
+          <div className="bg-gradient-to-r from-slate via-white to-slate-200 border-t-2 border-blue p-3 sm:p-6 shadow-lg">
             <div className="">
               <ProgressBar
                 current={matchedPairs}
