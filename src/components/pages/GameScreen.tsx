@@ -5,7 +5,7 @@ import { ProgressBar } from '../game/ProgressBar';
 import { Button } from '../common/Button';
 import { Modal } from '../common/Modal';
 import { Pause, Home } from 'lucide-react';
-import { GameState } from '../../types/game';
+import type { GameState } from '../../types';
 
 interface GameScreenProps {
   gameState: GameState;

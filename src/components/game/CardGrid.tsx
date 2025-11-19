@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from './Card';
-import { Card as CardType } from '../../types/game';
+import type { Card as CardType } from '../../types';
 
 interface CardGridProps {
   cards: CardType[];

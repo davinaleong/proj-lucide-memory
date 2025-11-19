@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '../common/Button';
-import { PlayerProgress } from '../../types/game';
+import type { PlayerProgress } from '../../types';
 
 interface WelcomeScreenProps {
   playerProgress: PlayerProgress | null;

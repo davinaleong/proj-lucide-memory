@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Icons from 'lucide-react';
-import { Card as CardType } from '../../types/game';
+import type { Card as CardType } from '../../types';
 
 interface CardProps {
   card: CardType;

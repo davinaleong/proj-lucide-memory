@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { GameState, Card, PlayerProgress, LevelConfig } from '../types/game';
+import type { GameState, Card, PlayerProgress, LevelConfig } from '../types';
 import { useLocalStorage } from './useLocalStorage';
 
 // Level configurations

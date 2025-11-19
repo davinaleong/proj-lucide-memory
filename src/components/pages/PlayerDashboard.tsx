@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '../common/Button';
 import { Trophy, Target, Clock, Play } from 'lucide-react';
-import { PlayerProgress } from '../../types/game';
+import type { PlayerProgress } from '../../types';
 
 interface PlayerDashboardProps {
   playerProgress: PlayerProgress;
