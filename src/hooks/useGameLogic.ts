@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { GameState, Card, PlayerProgress, LevelConfig } from '../types';
 import { useLocalStorage } from './useLocalStorage';
+import { useGameAudio } from './useAudio';
 
 // Level configurations
 const LEVEL_CONFIGS: LevelConfig[] = [
@@ -20,6 +21,7 @@ const INITIAL_PLAYER_PROGRESS: PlayerProgress = {
 
 export function useGameLogic() {
   const [playerProgress, setPlayerProgress] = useLocalStorage<PlayerProgress>('lucide-memory-progress', INITIAL_PLAYER_PROGRESS);
+  const { playMatchSuccess, playMatchFail, playLevelComplete } = useGameAudio();
   const [gameState, setGameState] = useState<GameState>({
     currentLevel: 1,
     score: 0,
@@ -30,7 +32,7 @@ export function useGameLogic() {
     matchedPairs: [],
     gameStatus: 'idle'
   });
-  const [gameTimer, setGameTimer] = useState<NodeJS.Timeout | null>(null);
+  const [gameTimer, setGameTimer] = useState<number | null>(null);
 
   // Initialize cards for a level
   const initializeCards = useCallback((level: number): Card[] => {
@@ -98,7 +100,9 @@ export function useGameLogic() {
         const secondCard = newCards[secondCardId];
         
         if (firstCard.pairId === secondCard.pairId) {
-          // Match found
+          // Match found - play success sound
+          playMatchSuccess();
+          
           const matchedCards = newCards.map(c => 
             c.id === firstCardId || c.id === secondCardId 
               ? { ...c, isMatched: true } : c
@@ -111,6 +115,13 @@ export function useGameLogic() {
           const levelMultiplier = prevState.currentLevel;
           const matchScore = (baseScore + timeBonus + moveBonus) * levelMultiplier;
           
+          const isLevelComplete = newMatchedPairs.length === prevState.cards.length / 2;
+          
+          // Play level complete sound if game is finished
+          if (isLevelComplete) {
+            setTimeout(() => playLevelComplete(), 500);
+          }
+          
           return {
             ...prevState,
             cards: matchedCards,
@@ -118,10 +129,12 @@ export function useGameLogic() {
             matchedPairs: newMatchedPairs,
             moves: newMoves,
             score: prevState.score + matchScore,
-            gameStatus: newMatchedPairs.length === prevState.cards.length / 2 ? 'completed' : 'playing'
+            gameStatus: isLevelComplete ? 'completed' : 'playing'
           };
         } else {
-          // No match - flip cards back after delay
+          // No match - play fail sound and flip cards back after delay
+          setTimeout(() => playMatchFail(), 600);
+          
           setTimeout(() => {
             setGameState(currentState => ({
               ...currentState,

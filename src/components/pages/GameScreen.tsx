@@ -4,6 +4,7 @@ import { CardGrid } from '../game/CardGrid';
 import { ProgressBar } from '../game/ProgressBar';
 import { Button } from '../common/Button';
 import { Modal } from '../common/Modal';
+import { AudioControls } from '../common/AudioControls';
 import { Pause, Home } from 'lucide-react';
 import type { GameState } from '../../types';
 
@@ -50,33 +51,42 @@ export const GameScreen: React.FC<GameScreenProps> = ({
         {/* Main Game Area */}
         <div className="flex-1 flex flex-col">
           {/* Controls */}
-          <div className="bg-gradient-to-r from-slate via-white to-slate-200 border-b-2 border-blue p-2 sm:p-4 shadow-lg">
-            <div className="flex justify-between items-center">
-            <Button
-              onClick={onHome}
-              variant="outline"
-              size="sm"
-              className="flex items-center space-x-1"
-            >
-              <Home className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span className="hidden sm:inline">Home</span>
-            </Button>
+          <div className="bg-gradient-to-r from-slate via-white to-slate-200 border-b-2 border-blue shadow-lg">
+            <div className="flex justify-between items-center p-2 sm:p-4">
+              <Button
+                onClick={onHome}
+                variant="outline"
+                size="sm"
+                className="flex items-center space-x-1"
+              >
+                <Home className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span className="hidden sm:inline">Home</span>
+              </Button>
+              
+              <h2 className="text-lg sm:text-xl font-montserrat font-bold bg-gradient-to-r from-blue to-dark-blue bg-clip-text text-transparent">
+                Level {gameState.currentLevel}
+              </h2>
+              
+              <Button
+                onClick={onPause}
+                variant="outline"
+                size="sm"
+                className="flex items-center space-x-1"
+              >
+                <Pause className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span className="hidden sm:inline">Pause</span>
+              </Button>
+            </div>
             
-            <h2 className="text-lg sm:text-xl font-montserrat font-bold bg-gradient-to-r from-blue to-dark-blue bg-clip-text text-transparent">
-              Level {gameState.currentLevel}
-            </h2>
-            
-            <Button
-              onClick={onPause}
-              variant="outline"
-              size="sm"
-              className="flex items-center space-x-1"
-            >
-              <Pause className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span className="hidden sm:inline">Pause</span>
-            </Button>
+            {/* Audio Controls */}
+            <div className="px-2 sm:px-4 pb-2 sm:pb-3 border-t border-slate-200">
+              <AudioControls 
+                showBackgroundMusicToggle={true}
+                showVolumeSlider={true}
+                className="justify-center"
+              />
+            </div>
           </div>
-        </div>
           
           {/* Card Grid */}
           <div className="flex-1 flex items-center justify-center p-4">

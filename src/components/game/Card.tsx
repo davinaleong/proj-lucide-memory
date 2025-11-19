@@ -1,6 +1,7 @@
 import React from 'react';
 import * as Icons from 'lucide-react';
 import type { Card as CardType } from '../../types';
+import { useGameAudio } from '../../hooks/useAudio';
 
 interface CardProps {
   card: CardType;
@@ -10,9 +11,11 @@ interface CardProps {
 
 export const Card: React.FC<CardProps> = ({ card, onClick, disabled = false }) => {
   const IconComponent = (Icons as any)[card.icon] || Icons.Circle;
+  const { playCardFlip } = useGameAudio();
   
   const handleClick = () => {
     if (!disabled && !card.isFlipped && !card.isMatched) {
+      playCardFlip();
       onClick(card.id);
     }
   };

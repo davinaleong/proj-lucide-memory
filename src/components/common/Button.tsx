@@ -1,4 +1,5 @@
 import React from 'react';
+import { useGameAudio } from '../../hooks/useAudio';
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -17,6 +18,7 @@ export const Button: React.FC<ButtonProps> = ({
   disabled = false,
   className = ''
 }) => {
+  const { playButtonClick } = useGameAudio();
   const baseClasses = 'font-montserrat font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
   
   const variantClasses = {
@@ -38,9 +40,16 @@ export const Button: React.FC<ButtonProps> = ({
   
   const disabledClasses = disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer';
   
+  const handleClick = () => {
+    if (!disabled) {
+      playButtonClick();
+      onClick?.();
+    }
+  };
+
   return (
     <button
-      onClick={onClick}
+      onClick={handleClick}
       disabled={disabled}
       className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${disabledClasses} ${className}`}
     >

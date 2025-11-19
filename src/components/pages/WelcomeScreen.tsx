@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '../common/Button';
+import { AudioControls } from '../common/AudioControls';
 import type { PlayerProgress } from '../../types';
 
 interface WelcomeScreenProps {
@@ -47,6 +48,15 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
           )}
         </div>
         
+        {/* Audio Controls */}
+        <div className="mb-6 p-4 bg-slate rounded-lg border-2 border-slate-200">
+          <AudioControls 
+            showBackgroundMusicToggle={true}
+            showVolumeSlider={true}
+            className="justify-center"
+          />
+        </div>
+
         {/* Start Button */}
         <Button
           onClick={onStart}
