@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '../common/Button';
+import { PageLayout } from '../layout/PageLayout';
 import type { PlayerProgress } from '../../types';
 
 interface WelcomeScreenProps {
@@ -14,8 +15,8 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
   const isReturningPlayer = playerProgress?.hasPlayed;
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-2 sm:p-4">
-      <div className="bg-white rounded-xl shadow-2xl min-w-sm max-w-md w-full p-4 sm:p-8 text-center border-2 border-blue backdrop-blur-sm">
+    <PageLayout variant="centered">
+      <div className="text-center">
         {/* Title */}
         <h1 className="text-3xl sm:text-4xl font-montserrat font-bold bg-gradient-to-r from-blue via-dark-blue to-sky-blue bg-clip-text text-transparent mb-4 sm:mb-6">
           Lucide Memory
@@ -48,13 +49,15 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
         </div>
 
         {/* Start Button */}
-        <Button
-          onClick={onStart}
-          size="lg"
-          className="w-full"
-        >
-          START
-        </Button>
+        <div className="flex justify-center">
+          <Button
+            onClick={onStart}
+            size="lg"
+            className="w-full max-w-xs"
+          >
+            START
+          </Button>
+        </div>
         
         {/* Decorative Elements */}
         <div className="mt-8 flex justify-center space-x-2">
@@ -63,6 +66,6 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
           <div className="w-3 h-3 bg-gradient-to-r from-orange to-blue rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
         </div>
       </div>
-    </div>
+    </PageLayout>
   );
 };

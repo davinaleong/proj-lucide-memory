@@ -19,13 +19,9 @@
 }
 
 .App {
-  /* Mobile-first design with responsive constraints */
+  /* App container - layouts handle their own styling */
   min-height: 100vh;
-  min-width: 320px;  /* Minimum for smallest mobile devices */
-  max-width: 480px;  /* Maximum for optimal mobile experience */
   width: 100%;
-  margin: 0 auto;    /* Center on larger screens */
-  background: linear-gradient(135deg, var(--color-background) 0%, var(--color-surface) 100%);
 }
 
 /* Custom scrollbar styling */
@@ -82,36 +78,7 @@
   animation: slideIn 0.3s ease-out;
 }
 
-/* Mobile-specific responsive utilities */
-@media (max-width: 480px) {
-  .App {
-    font-size: 14px;
-    padding: 0.5rem;
-  }
-}
-
-@media (max-width: 360px) {
-  .App {
-    font-size: 12px;
-    padding: 0.25rem;
-  }
-}
-
-@media (max-width: 320px) {
-  .App {
-    font-size: 11px;
-    padding: 0.125rem;
-  }
-}
-
-/* Tablet and larger screens */
-@media (min-width: 481px) {
-  .App {
-    border-radius: 1rem;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-  }
-}
+/* Layout system ensures consistent width and centering behavior */
 
 /* Print styles */
 @media print {

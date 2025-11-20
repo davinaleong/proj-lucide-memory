@@ -5,6 +5,7 @@ import { ProgressBar } from '../game/ProgressBar';
 import { Button } from '../common/Button';
 import { Modal } from '../common/Modal';
 import { AudioControls } from '../common/AudioControls';
+import { PageLayout } from '../layout/PageLayout';
 import { Pause, Home } from 'lucide-react';
 import type { GameState } from '../../types';
 
@@ -38,8 +39,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
   const isGameDisabled = gameState.gameStatus !== 'playing';
 
   return (
-    <div className="min-h-screen flex items-start justify-center p-2 sm:p-4">
-      <div className="bg-white rounded-xl shadow-2xl min-w-sm max-w-md w-full flex flex-col border-2 border-blue backdrop-blur-sm my-2 sm:my-4">
+    <PageLayout variant="fullscreen">
         {/* Game Header */}
         <GameHeader
           level={gameState.currentLevel}
@@ -109,7 +109,6 @@ export const GameScreen: React.FC<GameScreenProps> = ({
             </div>
           </div>
         </div>
-      </div>
       
       {/* Pause Modal */}
       <Modal
@@ -194,6 +193,6 @@ export const GameScreen: React.FC<GameScreenProps> = ({
           </div>
         </div>
       </Modal>
-    </div>
+    </PageLayout>
   );
 };

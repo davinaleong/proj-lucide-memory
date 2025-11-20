@@ -194,7 +194,7 @@ function App() {
   };
 
   return (
-    <div className="App font-montserrat min-h-screen bg-gray-100">
+    <div className="App font-montserrat min-h-screen">
       {renderCurrentView()}
     </div>
   );

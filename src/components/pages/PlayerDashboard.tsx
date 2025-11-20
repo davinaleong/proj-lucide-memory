@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '../common/Button';
+import { PageLayout } from '../layout/PageLayout';
 import { Trophy, Target, Clock, Play } from 'lucide-react';
 import type { PlayerProgress } from '../../types';
 
@@ -21,17 +22,16 @@ export const PlayerDashboard: React.FC<PlayerDashboardProps> = ({
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-2 sm:p-4">
-      <div className="bg-white rounded-xl shadow-2xl min-w-sm max-w-md w-full p-4 sm:p-8 border-2 border-blue backdrop-blur-sm">
-        {/* Header */}
-        <div className="text-center mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl font-montserrat font-bold bg-gradient-to-r from-blue via-dark-blue to-sky-blue bg-clip-text text-transparent mb-2">
-            Dashboard
-          </h1>
-          <p className="text-sm sm:text-base text-blue font-montserrat">
-            Your memory progress
-          </p>
-        </div>
+    <PageLayout variant="centered">
+      {/* Header */}
+      <div className="text-center mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-montserrat font-bold bg-gradient-to-r from-blue via-dark-blue to-sky-blue bg-clip-text text-transparent mb-2">
+          Dashboard
+        </h1>
+        <p className="text-sm sm:text-base text-blue font-montserrat">
+          Your memory progress
+        </p>
+      </div>
         
         {/* Stats Grid */}
         <div className="grid grid-cols-2 gap-4 mb-8">
@@ -108,7 +108,6 @@ export const PlayerDashboard: React.FC<PlayerDashboardProps> = ({
             ></div>
           </div>
         </div>
-      </div>
-    </div>
+    </PageLayout>
   );
 };
