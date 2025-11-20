@@ -1,0 +1,25 @@
+# Code Owners for Lucide Memory Game
+
+# Global ownership - all files require review
+* @davinaleong
+
+# Critical configuration files require additional scrutiny
+package.json @davinaleong
+package-lock.json @davinaleong
+tsconfig*.json @davinaleong
+vite.config.ts @davinaleong
+eslint.config.js @davinaleong
+
+# GitHub workflows and configuration
+.github/ @davinaleong
+
+# Source code - core game logic
+src/hooks/ @davinaleong
+src/utils/ @davinaleong
+
+# Test files - ensure test quality
+src/test/ @davinaleong
+
+# Build and deployment configuration
+dist/ @davinaleong
+public/ @davinaleong
