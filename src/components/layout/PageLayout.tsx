@@ -26,7 +26,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
          style={{
            background: 'linear-gradient(135deg, #F1F5F9 0%, #e2e8f0 100%)'
          }}>
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-md p-4 sm:p-8 border-2 border-blue backdrop-blur-sm">
+      <div className="bg-white rounded-xl shadow-2xl w-full p-4 sm:p-8 border-2 border-blue backdrop-blur-sm">
         {children}
       </div>
     </div>
