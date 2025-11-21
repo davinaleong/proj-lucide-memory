@@ -20,6 +20,8 @@ export interface AudioControls {
   pauseBackgroundMusic: () => void;
   resumeBackgroundMusic: () => void;
   isBackgroundMusicPlaying: () => boolean;
+  skipToNextTrack: () => void;
+  getCurrentTrackInfo: () => { index: number; total: number; name: string };
 }
 
 export function useAudio(): AudioControls {
@@ -107,6 +109,14 @@ export function useAudio(): AudioControls {
     return soundManager.isBackgroundMusicPlaying();
   }, []);
 
+  const skipToNextTrack = useCallback(() => {
+    soundManager.skipToNextTrack();
+  }, []);
+
+  const getCurrentTrackInfo = useCallback(() => {
+    return soundManager.getCurrentTrackInfo();
+  }, []);
+
   return {
     play,
     stop,
@@ -124,7 +134,9 @@ export function useAudio(): AudioControls {
     stopBackgroundMusic,
     pauseBackgroundMusic,
     resumeBackgroundMusic,
-    isBackgroundMusicPlaying
+    isBackgroundMusicPlaying,
+    skipToNextTrack,
+    getCurrentTrackInfo
   };
 }
 

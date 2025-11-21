@@ -1,5 +1,5 @@
 import React from 'react';
-import { Volume2, VolumeX, Music } from 'lucide-react';
+import { Volume2, VolumeX, Music, SkipForward } from 'lucide-react';
 import { useGameAudio } from '../../hooks/useAudio';
 import { Button } from '../common/Button';
 
@@ -21,10 +21,26 @@ export function AudioControls({
     setMasterVolume,
     playBackgroundMusic,
     stopBackgroundMusic,
-    playButtonClick
+    playButtonClick,
+    skipToNextTrack,
+    getCurrentTrackInfo,
+    isBackgroundMusicPlaying
   } = useGameAudio();
 
-  const [isBackgroundMusicPlaying, setIsBackgroundMusicPlaying] = React.useState(false);
+  const [isPlaying, setIsPlaying] = React.useState(isBackgroundMusicPlaying());
+  const [currentTrackInfo, setCurrentTrackInfo] = React.useState(getCurrentTrackInfo());
+
+  // Update playing state and track info periodically
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      const playing = isBackgroundMusicPlaying();
+      const trackInfo = getCurrentTrackInfo();
+      setIsPlaying(playing);
+      setCurrentTrackInfo(trackInfo);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isBackgroundMusicPlaying, getCurrentTrackInfo]);
 
   const handleMuteToggle = () => {
     playButtonClick();
@@ -38,13 +54,19 @@ export function AudioControls({
 
   const handleBackgroundMusicToggle = () => {
     playButtonClick();
-    if (isBackgroundMusicPlaying) {
+    if (isPlaying) {
       stopBackgroundMusic();
-      setIsBackgroundMusicPlaying(false);
+      setIsPlaying(false);
     } else {
       playBackgroundMusic();
-      setIsBackgroundMusicPlaying(true);
+      setIsPlaying(true);
     }
+  };
+
+  const handleSkipTrack = () => {
+    playButtonClick();
+    skipToNextTrack();
+    setCurrentTrackInfo(getCurrentTrackInfo());
   };
 
   return (
@@ -96,26 +118,48 @@ export function AudioControls({
         </div>
       )}
 
-      {/* Background Music Toggle */}
+      {/* Background Music Controls */}
       {showBackgroundMusicToggle && (
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={handleBackgroundMusicToggle}
-          className={`flex items-center gap-2 rounded-sm px-3 py-2 min-w-[5ch] ${
-            isBackgroundMusicPlaying 
-              ? 'bg-blue-50 border-blue-200 text-blue-700' 
-              : 'text-slate-600'
-          }`}
-          aria-label={isBackgroundMusicPlaying ? 'Stop background music' : 'Play background music'}
-        >
-          <Music className={`w-4 h-4 ${
-            isBackgroundMusicPlaying ? 'text-blue-600' : 'text-slate-500'
-          }`} />
-          <span className="hidden sm:inline text-sm">
-            Music
-          </span>
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleBackgroundMusicToggle}
+            className={`flex items-center gap-2 rounded-sm px-3 py-2 min-w-[5ch] ${
+              isPlaying 
+                ? 'bg-blue-50 border-blue-200 text-blue-700' 
+                : 'text-slate-600'
+            }`}
+            aria-label={isPlaying ? 'Stop background music' : 'Play background music'}
+          >
+            <Music className={`w-4 h-4 ${
+              isPlaying ? 'text-blue-600' : 'text-slate-500'
+            }`} />
+            <span className="hidden sm:inline text-sm">
+              Music
+            </span>
+          </Button>
+          
+          {/* Skip Track Button - only show when music is playing */}
+          {isPlaying && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleSkipTrack}
+              className="flex items-center gap-1 rounded-sm px-2 py-2"
+              aria-label={`Skip to next track. Current: ${currentTrackInfo.name} (${currentTrackInfo.index + 1}/${currentTrackInfo.total})`}
+            >
+              <SkipForward className="w-4 h-4 text-slate-600" />
+            </Button>
+          )}
+          
+          {/* Current track info - show on larger screens when playing */}
+          {isPlaying && (
+            <div className="hidden md:block text-xs text-slate-600 max-w-[120px] truncate">
+              {currentTrackInfo.name}
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

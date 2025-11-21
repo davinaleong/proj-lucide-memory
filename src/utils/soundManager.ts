@@ -18,6 +18,9 @@ interface SoundConfig {
 
 class SoundManager {
   private sounds: Map<SoundType, Howl> = new Map();
+  private backgroundMusicTracks: Howl[] = [];
+  private currentTrackIndex: number = 0;
+  private isBackgroundMusicEnabled: boolean = false;
   private isMuted: boolean = false;
   private masterVolume: number = 0.7;
 
@@ -59,35 +62,124 @@ class SoundManager {
         preload: true
       },
       backgroundMusic: {
-        src: [
-          '/sounds/Steady-Focus_AdobeStock_1801511466.wav',
-          '/sounds/Calm-Beauty_AdobeStock_1773129888.wav', 
-          '/sounds/Easy-Vibes_AdobeStock_1773129821.wav'
-        ],
+        src: ['/sounds/placeholder.mp3'], // Placeholder - we'll create individual tracks
         volume: 0.2,
-        loop: true,
-        preload: true // Preload background music for auto-play
+        loop: false,
+        preload: false
       }
     };
 
-    // Create Howl instances for each sound
+    // Create Howl instances for each sound (except background music)
     Object.entries(soundConfigs).forEach(([soundType, config]) => {
-      const sound = new Howl({
-        src: config.src,
-        volume: (config.volume || 0.5) * this.masterVolume,
-        loop: config.loop || false,
-        preload: config.preload || true,
-        html5: soundType === 'backgroundMusic', // Use HTML5 for long audio
-        format: soundType === 'backgroundMusic' ? ['wav'] : undefined, // Specify WAV format for background music
+      if (soundType !== 'backgroundMusic') {
+        const sound = new Howl({
+          src: config.src,
+          volume: (config.volume || 0.5) * this.masterVolume,
+          loop: config.loop || false,
+          preload: config.preload || true,
+          onloaderror: (_, error) => {
+            console.warn(`Failed to load sound: ${soundType}`, error);
+          },
+          onplayerror: (_, error) => {
+            console.warn(`Failed to play sound: ${soundType}`, error);
+          }
+        });
+
+        this.sounds.set(soundType as SoundType, sound);
+      }
+    });
+
+    // Initialize background music rotation system
+    this.initializeBackgroundMusic();
+  }
+
+  private initializeBackgroundMusic() {
+    const backgroundTracks = [
+      '/sounds/Steady-Focus_AdobeStock_1801511466.wav',
+      '/sounds/Calm-Beauty_AdobeStock_1773129888.wav', 
+      '/sounds/Easy-Vibes_AdobeStock_1773129821.wav'
+    ];
+
+    // Create individual Howl instances for each background track
+    this.backgroundMusicTracks = backgroundTracks.map((trackSrc, index) => {
+      return new Howl({
+        src: [trackSrc],
+        volume: 0.2 * this.masterVolume,
+        loop: false, // Don't loop individual tracks - we'll handle rotation
+        preload: true,
+        html5: true, // Use HTML5 for long audio files
+        format: ['wav'],
+        onend: () => {
+          // When current track ends, play the next one
+          if (this.isBackgroundMusicEnabled) {
+            this.playNextTrack();
+          }
+        },
         onloaderror: (_, error) => {
-          console.warn(`Failed to load sound: ${soundType}`, error);
+          console.warn(`Failed to load background track ${index}:`, error);
         },
         onplayerror: (_, error) => {
-          console.warn(`Failed to play sound: ${soundType}`, error);
+          console.warn(`Failed to play background track ${index}:`, error);
+          // If current track fails, try the next one
+          if (this.isBackgroundMusicEnabled) {
+            this.playNextTrack();
+          }
         }
       });
+    });
 
-      this.sounds.set(soundType as SoundType, sound);
+    // Shuffle the initial order to add variety
+    this.currentTrackIndex = Math.floor(Math.random() * this.backgroundMusicTracks.length);
+  }
+
+  private playNextTrack() {
+    if (!this.isBackgroundMusicEnabled || this.isMuted || this.backgroundMusicTracks.length === 0) {
+      return;
+    }
+
+    // Stop current track if playing
+    this.stopAllBackgroundTracks();
+
+    // Move to next track (with wraparound)
+    this.currentTrackIndex = (this.currentTrackIndex + 1) % this.backgroundMusicTracks.length;
+    
+    // Play the next track
+    const nextTrack = this.backgroundMusicTracks[this.currentTrackIndex];
+    if (nextTrack) {
+      console.log(`Playing background track ${this.currentTrackIndex + 1}/${this.backgroundMusicTracks.length}`);
+      nextTrack.play();
+    }
+  }
+
+  private stopAllBackgroundTracks() {
+    this.backgroundMusicTracks.forEach(track => {
+      if (track.playing()) {
+        track.stop();
+      }
+    });
+  }
+
+  private pauseAllBackgroundTracks() {
+    this.backgroundMusicTracks.forEach(track => {
+      if (track.playing()) {
+        track.pause();
+      }
+    });
+  }
+
+  private resumeCurrentBackgroundTrack() {
+    if (!this.isBackgroundMusicEnabled || this.isMuted) return;
+    
+    const currentTrack = this.backgroundMusicTracks[this.currentTrackIndex];
+    if (currentTrack && !currentTrack.playing()) {
+      currentTrack.play();
+    }
+  }
+
+  private updateBackgroundMusicVolume() {
+    const volume = this.isMuted ? 0 : 0.2 * this.masterVolume;
+    this.backgroundMusicTracks.forEach(track => {
+      track.volume(volume);
     });
   }
 
@@ -98,6 +190,7 @@ class SoundManager {
         const settings = JSON.parse(savedSettings);
         this.isMuted = settings.isMuted || false;
         this.masterVolume = settings.masterVolume || 0.7;
+        this.isBackgroundMusicEnabled = settings.isBackgroundMusicEnabled || false;
         this.updateAllVolumes();
       }
     } catch (error) {
@@ -109,7 +202,8 @@ class SoundManager {
     try {
       const settings = {
         isMuted: this.isMuted,
-        masterVolume: this.masterVolume
+        masterVolume: this.masterVolume,
+        isBackgroundMusicEnabled: this.isBackgroundMusicEnabled
       };
       localStorage.setItem('lucide-memory-audio-settings', JSON.stringify(settings));
     } catch (error) {
@@ -122,6 +216,8 @@ class SoundManager {
       const baseVolume = this.getBaseVolume(soundType);
       sound.volume(this.isMuted ? 0 : baseVolume * this.masterVolume);
     });
+    // Also update background music tracks
+    this.updateBackgroundMusicVolume();
   }
 
   private getBaseVolume(soundType: SoundType): number {
@@ -214,73 +310,83 @@ class SoundManager {
     return this.isMuted;
   }
 
-  // Background music specific methods
+  // Background music specific methods with rotation
   playBackgroundMusic(): Promise<void> {
     return new Promise((resolve, reject) => {
-      if (this.isMuted) {
+      if (this.isMuted || this.backgroundMusicTracks.length === 0) {
         resolve();
         return;
       }
 
-      const sound = this.sounds.get('backgroundMusic');
-      if (sound) {
-        // Check if already playing
-        if (sound.playing()) {
-          resolve();
-          return;
-        }
+      this.isBackgroundMusicEnabled = true;
+      this.saveSettings();
 
-        // Set up success/error handlers
-        const onPlay = () => {
-          sound.off('play', onPlay);
-          sound.off('playerror', onError);
-          console.log('Background music started successfully');
-          resolve();
-        };
+      // If already playing, just resolve
+      if (this.isBackgroundMusicPlaying()) {
+        resolve();
+        return;
+      }
 
-        const onError = (error: unknown) => {
-          sound.off('play', onPlay);
-          sound.off('playerror', onError);
-          console.warn('Failed to play background music:', error);
-          reject(new Error('Failed to play background music'));
-        };
-
-        sound.on('play', onPlay);
-        sound.on('playerror', onError);
-        
+      // Start playing the current track
+      const currentTrack = this.backgroundMusicTracks[this.currentTrackIndex];
+      if (currentTrack) {
         try {
-          const playId = sound.play();
-          if (playId === undefined) {
-            sound.off('play', onPlay);
-            sound.off('playerror', onError);
+          console.log(`Starting background music rotation - Track ${this.currentTrackIndex + 1}/${this.backgroundMusicTracks.length}`);
+          const playId = currentTrack.play();
+          if (playId !== undefined) {
+            resolve();
+          } else {
             reject(new Error('Failed to start background music'));
           }
         } catch (error) {
-          sound.off('play', onPlay);
-          sound.off('playerror', onError);
           reject(error);
         }
       } else {
-        reject(new Error('Background music sound not found'));
+        reject(new Error('No background music tracks available'));
       }
     });
   }
 
   stopBackgroundMusic(): void {
-    this.stop('backgroundMusic');
+    this.isBackgroundMusicEnabled = false;
+    this.stopAllBackgroundTracks();
+    this.saveSettings();
   }
 
   pauseBackgroundMusic(): void {
-    this.pause('backgroundMusic');
+    this.pauseAllBackgroundTracks();
   }
 
   resumeBackgroundMusic(): void {
-    this.resume('backgroundMusic');
+    if (this.isBackgroundMusicEnabled) {
+      this.resumeCurrentBackgroundTrack();
+    }
   }
 
   isBackgroundMusicPlaying(): boolean {
-    const sound = this.sounds.get('backgroundMusic');
-    return sound ? sound.playing() : false;
+    return this.backgroundMusicTracks.some(track => track.playing());
+  }
+
+  // New method to manually skip to next track
+  skipToNextTrack(): void {
+    if (this.isBackgroundMusicEnabled) {
+      this.playNextTrack();
+    }
+  }
+
+  // Get current track info for UI
+  getCurrentTrackInfo(): { index: number; total: number; name: string } {
+    const trackNames = [
+      'Steady Focus',
+      'Calm Beauty',
+      'Easy Vibes'
+    ];
+    
+    return {
+      index: this.currentTrackIndex,
+      total: this.backgroundMusicTracks.length,
+      name: trackNames[this.currentTrackIndex] || 'Unknown Track'
+    };
   }
 
   // Cleanup method
@@ -289,6 +395,13 @@ class SoundManager {
       sound.unload();
     });
     this.sounds.clear();
+    
+    // Also unload background music tracks
+    this.backgroundMusicTracks.forEach(track => {
+      track.unload();
+    });
+    this.backgroundMusicTracks = [];
+    this.isBackgroundMusicEnabled = false;
   }
 }
 
