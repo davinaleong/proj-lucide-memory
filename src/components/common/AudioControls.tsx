@@ -70,7 +70,7 @@ export function AudioControls({
   };
 
   return (
-    <div className={`flex items-center justify-center gap-2 sm:gap-4 ${className} overflow-hidden`}>
+    <div className={`flex items-center justify-between gap-2 sm:gap-4 ${className} overflow-hidden`}>
       {/* Mute/Unmute Button */}
       <Button
         variant="outline"
@@ -100,7 +100,7 @@ export function AudioControls({
             value={isMuted ? 0 : masterVolume}
             onChange={handleVolumeChange}
             disabled={isMuted}
-            className={`volume-slider w-16 sm:w-20 h-2 rounded-lg cursor-pointer transition-opacity flex-shrink ${
+            className={`volume-slider w-16 sm:w-20 h-2 rounded-sm cursor-pointer transition-opacity flex-shrink ${
               isMuted ? 'opacity-50 cursor-not-allowed' : 'opacity-100'
             }`}
             aria-label="Master volume"

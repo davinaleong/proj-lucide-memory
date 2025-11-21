@@ -29,7 +29,7 @@ export const Modal: React.FC<ModalProps> = ({
       <div className={`relative bg-gradient-to-br from-white via-slate to-slate-200 rounded-sm shadow-2xl w-full max-w-sm sm:max-w-md mx-4 border-2 border-blue backdrop-blur-sm max-h-[90vh] overflow-hidden flex flex-col ${className}`}>
         {/* Header */}
         {title && (
-          <div className="text-center p-3 sm:p-4 border-b-2 border-blue bg-gradient-to-r from-slate to-white rounded-t-xl flex-shrink-0">
+          <div className="text-center p-3 sm:p-4 border-b-2 border-blue bg-gradient-to-r from-slate to-white rounded-t-sm flex-shrink-0">
             <h3 className="text-lg font-montserrat font-bold bg-gradient-to-r from-blue to-dark-blue bg-clip-text text-transparent truncate">{title}</h3>
           </div>
         )}

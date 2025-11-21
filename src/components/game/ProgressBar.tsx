@@ -28,12 +28,12 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
         </div>
       )}
       
-      <div className="w-full bg-slate-200 rounded-full h-3 border-2 border-blue shadow-inner">
-        <div
-          className="h-full bg-gradient-to-r from-blue via-sky-blue to-orange rounded-full transition-all duration-500 ease-out shadow-lg"
+      <div className="w-full bg-slate-200 rounded-sm h-3 border-2 border-blue shadow-inner">
+        <div 
+          className="h-full bg-gradient-to-r from-blue via-sky-blue to-orange rounded-sm transition-all duration-500 ease-out shadow-lg"
           style={{ width: `${percentage}%` }}
         >
-          <div className="h-full bg-gradient-to-r from-transparent to-white opacity-30 rounded-full animate-pulse"></div>
+          <div className="h-full bg-gradient-to-r from-transparent to-white opacity-30 rounded-sm animate-pulse"></div>
         </div>
       </div>
       

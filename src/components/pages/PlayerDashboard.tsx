@@ -101,9 +101,9 @@ export const PlayerDashboard: React.FC<PlayerDashboardProps> = ({
           <div className="text-sm font-montserrat text-blue mb-2">
             Ready for Level {playerProgress.highestLevel + 1}?
           </div>
-          <div className="w-full bg-slate-200 rounded-full h-3 border-2 border-blue shadow-inner">
+          <div className="w-full bg-slate-200 rounded-sm h-3 border-2 border-blue shadow-inner">
             <div 
-              className="h-full bg-gradient-to-r from-blue via-sky-blue to-dark-blue rounded-full transition-all duration-500 shadow-lg" 
+              className="h-full bg-gradient-to-r from-blue via-sky-blue to-dark-blue rounded-sm transition-all duration-500 shadow-lg" 
               style={{ width: `${Math.min((playerProgress.highestLevel / 10) * 100, 100)}%` }}
             ></div>
           </div>
