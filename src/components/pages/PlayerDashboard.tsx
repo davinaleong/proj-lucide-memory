@@ -35,7 +35,7 @@ export const PlayerDashboard: React.FC<PlayerDashboardProps> = ({
         
         {/* Stats Grid */}
         <div className="stats-grid mb-8">
-          <div className="bg-gradient-to-br from-slate to-slate-200 rounded-xl p-4 text-center border-2 border-blue shadow-lg transform hover:scale-105 transition-transform">
+          <div className="bg-gradient-to-br from-slate to-slate-200 rounded-sm p-4 text-center border-2 border-blue shadow-lg transform hover:scale-105 transition-transform">
             <Target className="w-8 h-8 text-blue mx-auto mb-2" />
             <div className="text-2xl font-montserrat font-bold text-dark-blue">
               {playerProgress.highestLevel}
@@ -45,7 +45,7 @@ export const PlayerDashboard: React.FC<PlayerDashboardProps> = ({
             </div>
           </div>
           
-          <div className="bg-gradient-to-br from-slate to-slate-200 rounded-xl p-4 text-center border-2 border-orange shadow-lg transform hover:scale-105 transition-transform">
+          <div className="bg-gradient-to-br from-slate to-slate-200 rounded-sm p-4 text-center border-2 border-orange shadow-lg transform hover:scale-105 transition-transform">
             <Trophy className="w-8 h-8 text-orange mx-auto mb-2" />
             <div className="text-2xl font-montserrat font-bold text-dark-blue">
               {playerProgress.bestScore.toLocaleString()}
@@ -55,7 +55,7 @@ export const PlayerDashboard: React.FC<PlayerDashboardProps> = ({
             </div>
           </div>
           
-          <div className="bg-gradient-to-br from-slate to-slate-200 rounded-xl p-4 text-center border-2 border-sky-blue shadow-lg transform hover:scale-105 transition-transform">
+          <div className="bg-gradient-to-br from-slate to-slate-200 rounded-sm p-4 text-center border-2 border-sky-blue shadow-lg transform hover:scale-105 transition-transform">
             <Play className="w-8 h-8 text-sky-blue mx-auto mb-2" />
             <div className="text-2xl font-montserrat font-bold text-dark-blue">
               {playerProgress.totalGamesPlayed}
@@ -65,7 +65,7 @@ export const PlayerDashboard: React.FC<PlayerDashboardProps> = ({
             </div>
           </div>
           
-          <div className="bg-gradient-to-br from-slate to-slate-200 rounded-xl p-4 text-center border-2 border-blue shadow-lg transform hover:scale-105 transition-transform">
+          <div className="bg-gradient-to-br from-slate to-slate-200 rounded-sm p-4 text-center border-2 border-blue shadow-lg transform hover:scale-105 transition-transform">
             <Clock className="w-8 h-8 text-blue mx-auto mb-2" />
             <div className="text-2xl font-montserrat font-bold text-dark-blue">
               {formatTime(playerProgress.averageTime)}

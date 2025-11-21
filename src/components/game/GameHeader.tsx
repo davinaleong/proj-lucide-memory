@@ -32,7 +32,7 @@ export const GameHeader: React.FC<GameHeaderProps> = ({
       <div className="">
         <div className="grid grid-cols-2 gap-2 sm:gap-4">
           {statItems.map(({ icon: Icon, label, value }) => (
-            <div key={label} className="flex items-center space-x-1 sm:space-x-2 bg-gradient-to-br from-white to-slate rounded-xl p-2 sm:p-3 border border-blue shadow-md">
+            <div key={label} className="flex items-center space-x-1 sm:space-x-2 bg-gradient-to-br from-white to-slate rounded-sm p-2 sm:p-3 border border-blue shadow-md">
               <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${
                 label === 'Level' ? 'text-blue' :
                 label === 'Score' ? 'text-orange' :

@@ -24,7 +24,7 @@ export const Card: React.FC<CardProps> = ({ card, onClick, disabled = false }) =
     <div
       onClick={handleClick}
       className={`
-        relative w-full aspect-square rounded-xl border-2 cursor-pointer
+        relative w-full aspect-square rounded-sm border-2 cursor-pointer
         transition-all duration-300 transform hover:scale-105 shadow-lg
         ${card.isFlipped || card.isMatched 
           ? 'bg-gradient-to-br from-slate to-white border-blue shadow-xl' 
@@ -37,7 +37,7 @@ export const Card: React.FC<CardProps> = ({ card, onClick, disabled = false }) =
       {/* Card Back */}
       <div
         className={`
-          absolute inset-0 flex items-center justify-center rounded-xl
+          absolute inset-0 flex items-center justify-center rounded-sm
           transition-opacity duration-300
           ${card.isFlipped || card.isMatched ? 'opacity-0' : 'opacity-100'}
         `}
@@ -48,7 +48,7 @@ export const Card: React.FC<CardProps> = ({ card, onClick, disabled = false }) =
       {/* Card Front */}
       <div
         className={`
-          absolute inset-0 flex items-center justify-center rounded-xl
+          absolute inset-0 flex items-center justify-center rounded-sm
           transition-opacity duration-300
           ${card.isFlipped || card.isMatched ? 'opacity-100' : 'opacity-0'}
         `}

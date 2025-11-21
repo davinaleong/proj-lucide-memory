@@ -48,13 +48,13 @@ export function AudioControls({
   };
 
   return (
-    <div className={`flex items-center gap-4 ${className}`}>
+    <div className={`flex items-center justify-between gap-4 ${className}`}>
       {/* Mute/Unmute Button */}
       <Button
         variant="outline"
         size="sm"
         onClick={handleMuteToggle}
-        className="flex items-center gap-2 px-3 py-2"
+        className="flex items-center gap-2 rounded-sm px-3 py-2 min-w-[5ch]"
         aria-label={isMuted ? 'Unmute sound' : 'Mute sound'}
       >
         {isMuted ? (
@@ -102,7 +102,7 @@ export function AudioControls({
           variant="outline"
           size="sm"
           onClick={handleBackgroundMusicToggle}
-          className={`flex items-center gap-2 px-3 py-2 ${
+          className={`flex items-center gap-2 rounded-sm px-3 py-2 min-w-[5ch] ${
             isBackgroundMusicPlaying 
               ? 'bg-blue-50 border-blue-200 text-blue-700' 
               : 'text-slate-600'

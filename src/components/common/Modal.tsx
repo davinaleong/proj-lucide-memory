@@ -26,7 +26,7 @@ export const Modal: React.FC<ModalProps> = ({
       />
       
       {/* Modal */}
-      <div className={`relative bg-gradient-to-br from-white via-slate to-slate-200 rounded-xl shadow-2xl min-w-sm max-w-md w-full mx-4 border-2 border-blue backdrop-blur-sm ${className}`}>
+      <div className={`relative bg-gradient-to-br from-white via-slate to-slate-200 rounded-sm shadow-2xl min-w-sm max-w-md w-full mx-4 border-2 border-blue backdrop-blur-sm ${className}`}>
         {/* Header */}
         {title && (
           <div className="text-center p-4 border-b-2 border-blue bg-gradient-to-r from-slate to-white rounded-t-xl">

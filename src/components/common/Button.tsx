@@ -19,7 +19,7 @@ export const Button: React.FC<ButtonProps> = ({
   className = ''
 }) => {
   const { playButtonClick } = useGameAudio();
-  const baseClasses = 'font-montserrat font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
+  const baseClasses = 'font-montserrat font-medium rounded-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
   
   const variantClasses = {
     primary: 'text-white shadow-lg transform hover:scale-105 active:scale-95' + 

@@ -57,9 +57,9 @@ export const GameScreen: React.FC<GameScreenProps> = ({
                 onClick={onHome}
                 variant="outline"
                 size="sm"
-                className="flex items-center space-x-1"
+                className="flex items-center justify-center space-x-1 min-w-[5ch] min-h-[2ch] rounded-sm"
               >
-                <Home className="w-3 h-3 sm:w-4 sm:h-4" />
+                <Home className="w-4 h-4" />
                 <span className="hidden sm:inline">Home</span>
               </Button>
               
@@ -71,9 +71,9 @@ export const GameScreen: React.FC<GameScreenProps> = ({
                 onClick={onPause}
                 variant="outline"
                 size="sm"
-                className="flex items-center space-x-1"
+                className="flex items-center justify-center space-x-1 min-w-[5ch] min-h-[2ch] rounded-sm"
               >
-                <Pause className="w-3 h-3 sm:w-4 sm:h-4" />
+                <Pause className="w-4 h-4" />
                 <span className="hidden sm:inline">Pause</span>
               </Button>
             </div>
@@ -154,7 +154,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
             <p className="text-gray-600 font-montserrat mb-4">
               Congratulations! You completed Level {gameState.currentLevel}!
             </p>
-            <div className="bg-gray-100 rounded-lg p-4 border border-gray-300">
+            <div className="bg-gray-100 rounded-sm p-4 border border-gray-300">
               <div className="text-lg font-montserrat font-bold text-black">
                 Final Score: {gameState.score.toLocaleString()}
               </div>
