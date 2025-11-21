@@ -70,13 +70,13 @@ export function AudioControls({
   };
 
   return (
-    <div className={`flex items-center justify-between gap-4 ${className}`}>
+    <div className={`flex items-center justify-center gap-2 sm:gap-4 ${className} overflow-hidden`}>
       {/* Mute/Unmute Button */}
       <Button
         variant="outline"
         size="sm"
         onClick={handleMuteToggle}
-        className="flex items-center gap-2 rounded-sm px-3 py-2 min-w-[5ch]"
+        className="flex items-center gap-1 sm:gap-2 rounded-sm px-2 sm:px-3 py-2 min-w-0 flex-shrink-0"
         aria-label={isMuted ? 'Unmute sound' : 'Mute sound'}
       >
         {isMuted ? (
@@ -84,14 +84,14 @@ export function AudioControls({
         ) : (
           <Volume2 className="w-4 h-4 text-blue-600" />
         )}
-        <span className="hidden sm:inline text-sm">
-          {isMuted ? 'Unmuted' : 'Muted'}
+        <span className="hidden lg:inline text-sm whitespace-nowrap">
+          {isMuted ? 'Muted' : 'Sound'}
         </span>
       </Button>
 
       {/* Volume Slider */}
       {showVolumeSlider && (
-        <div className="flex items-center gap-2 min-w-[120px]">
+        <div className="flex items-center gap-2 min-w-0 flex-shrink">
           <input
             type="range"
             min="0"
@@ -100,7 +100,7 @@ export function AudioControls({
             value={isMuted ? 0 : masterVolume}
             onChange={handleVolumeChange}
             disabled={isMuted}
-            className={`volume-slider w-20 sm:w-24 h-2 rounded-lg cursor-pointer transition-opacity ${
+            className={`volume-slider w-16 sm:w-20 h-2 rounded-lg cursor-pointer transition-opacity flex-shrink ${
               isMuted ? 'opacity-50 cursor-not-allowed' : 'opacity-100'
             }`}
             aria-label="Master volume"
@@ -110,22 +110,22 @@ export function AudioControls({
                 : `linear-gradient(to right, #2563eb 0%, #2563eb ${masterVolume * 100}%, #cbd5e1 ${masterVolume * 100}%, #cbd5e1 100%)`
             }}
           />
-          <span className={`text-xs font-medium min-w-[2.5rem] text-right ${
+          <span className={`text-xs font-medium min-w-[2rem] text-right flex-shrink-0 ${
             isMuted ? 'text-slate-400' : 'text-blue-600'
           }`}>
-            {isMuted ? 'Muted' : `${Math.round(masterVolume * 100)}%`}
+            {isMuted ? '0%' : `${Math.round(masterVolume * 100)}%`}
           </span>
         </div>
       )}
 
       {/* Background Music Controls */}
       {showBackgroundMusicToggle && (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2 min-w-0 flex-shrink">
           <Button
             variant="outline"
             size="sm"
             onClick={handleBackgroundMusicToggle}
-            className={`flex items-center gap-2 rounded-sm px-3 py-2 min-w-[5ch] ${
+            className={`flex items-center gap-1 sm:gap-2 rounded-sm px-2 sm:px-3 py-2 min-w-0 flex-shrink-0 ${
               isPlaying 
                 ? 'bg-blue-50 border-blue-200 text-blue-700' 
                 : 'text-slate-600'
@@ -135,7 +135,7 @@ export function AudioControls({
             <Music className={`w-4 h-4 ${
               isPlaying ? 'text-blue-600' : 'text-slate-500'
             }`} />
-            <span className="hidden sm:inline text-sm">
+            <span className="hidden lg:inline text-sm whitespace-nowrap">
               Music
             </span>
           </Button>
@@ -146,7 +146,7 @@ export function AudioControls({
               variant="outline"
               size="sm"
               onClick={handleSkipTrack}
-              className="flex items-center gap-1 rounded-sm px-2 py-2"
+              className="flex items-center gap-1 rounded-sm px-2 py-2 flex-shrink-0"
               aria-label={`Skip to next track. Current: ${currentTrackInfo.name} (${currentTrackInfo.index + 1}/${currentTrackInfo.total})`}
             >
               <SkipForward className="w-4 h-4 text-slate-600" />
@@ -155,7 +155,7 @@ export function AudioControls({
           
           {/* Current track info - show on larger screens when playing */}
           {isPlaying && (
-            <div className="hidden md:block text-xs text-slate-600 max-w-[120px] truncate">
+            <div className="hidden xl:block text-xs text-slate-600 max-w-[100px] truncate flex-shrink">
               {currentTrackInfo.name}
             </div>
           )}

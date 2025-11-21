@@ -1,12 +1,11 @@
 import React from 'react';
-import { GameHeader } from '../game/GameHeader';
 import { CardGrid } from '../game/CardGrid';
 import { ProgressBar } from '../game/ProgressBar';
 import { Button } from '../common/Button';
 import { Modal } from '../common/Modal';
 import { AudioControls } from '../common/AudioControls';
 import { PageLayout } from '../layout/PageLayout';
-import { Pause, Home } from 'lucide-react';
+import { Menu, Home, Trophy, Clock, MousePointer, Target } from 'lucide-react';
 import type { GameState } from '../../types';
 
 interface GameScreenProps {
@@ -34,82 +33,153 @@ export const GameScreen: React.FC<GameScreenProps> = ({
   onNextLevel,
   onPlayAgain
 }) => {
+  const [showGameMenu, setShowGameMenu] = React.useState(false);
   const totalPairs = gameState.cards.length / 2;
   const matchedPairs = gameState.matchedPairs.length;
   const isGameDisabled = gameState.gameStatus !== 'playing';
 
+  const formatTime = (seconds: number): string => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
   return (
     <PageLayout variant="fullscreen">
-        {/* Game Header */}
-        <GameHeader
-          level={gameState.currentLevel}
-          score={gameState.score}
-          moves={gameState.moves}
-          timeElapsed={gameState.timeElapsed}
-        />
-        
-        {/* Main Game Area */}
-        <div className="flex-1 flex flex-col">
-          {/* Controls */}
-          <div className="bg-gradient-to-r from-slate via-white to-slate-200 border-b-2 border-blue shadow-lg">
-            <div className="flex justify-between items-center p-2 sm:p-4">
-              <Button
-                onClick={onHome}
-                variant="outline"
-                size="sm"
-                className="flex items-center justify-center space-x-1 min-w-[5ch] min-h-[2ch] rounded-sm"
-              >
-                <Home className="w-4 h-4" />
-                <span className="hidden sm:inline">Home</span>
-              </Button>
-              
-              <h2 className="text-lg sm:text-xl font-montserrat font-bold bg-gradient-to-r from-blue to-dark-blue bg-clip-text text-transparent">
-                Level {gameState.currentLevel}
-              </h2>
-              
-              <Button
-                onClick={onPause}
-                variant="outline"
-                size="sm"
-                className="flex items-center justify-center space-x-1 min-w-[5ch] min-h-[2ch] rounded-sm"
-              >
-                <Pause className="w-4 h-4" />
-                <span className="hidden sm:inline">Pause</span>
-              </Button>
+      {/* Simplified Header */}
+      <div className="bg-gradient-to-r from-slate via-white to-slate-200 border-b-2 border-blue shadow-lg">
+        <div className="flex justify-between items-center p-3 sm:p-4">
+          <Button
+            onClick={() => setShowGameMenu(true)}
+            variant="outline"
+            size="sm"
+            className="flex items-center justify-center space-x-1 min-w-[3rem] rounded-sm"
+          >
+            <Menu className="w-4 h-4" />
+          </Button>
+          
+          <div className="text-center">
+            <h1 className="text-lg sm:text-xl font-montserrat font-bold bg-gradient-to-r from-blue to-dark-blue bg-clip-text text-transparent">
+              Level {gameState.currentLevel}
+            </h1>
+            <div className="text-sm text-blue font-montserrat">
+              {matchedPairs}/{totalPairs} pairs
             </div>
-            
-            {/* Audio Controls */}
-            <div className="px-2 sm:px-4 pb-2 sm:pb-3 border-t border-slate-200">
+          </div>
+          
+          <Button
+            onClick={onHome}
+            variant="outline"
+            size="sm"
+            className="flex items-center justify-center space-x-1 min-w-[3rem] rounded-sm"
+          >
+            <Home className="w-4 h-4" />
+          </Button>
+        </div>
+      </div>
+      
+      {/* Card Grid - Full Focus */}
+      <div className="flex-1 flex items-center justify-center p-4">
+        <CardGrid
+          cards={gameState.cards}
+          onCardClick={onCardClick}
+          disabled={isGameDisabled}
+          gridCols={gridCols}
+        />
+      </div>
+      
+      {/* Game Menu Modal */}
+      <Modal
+        isOpen={showGameMenu}
+        onClose={() => setShowGameMenu(false)}
+        title="Game Menu"
+      >
+        <div className="space-y-6">
+          {/* Game Stats */}
+          <div>
+            <h3 className="text-lg font-montserrat font-bold text-dark-blue mb-3">Statistics</h3>
+            <div className="grid grid-cols-2 gap-2 sm:gap-3">
+              <div className="flex items-center space-x-2 bg-gradient-to-br from-white to-slate rounded-sm p-2 sm:p-3 border border-blue shadow-md min-w-0">
+                <Trophy className="w-4 h-4 sm:w-5 sm:h-5 text-orange flex-shrink-0" />
+                <div className="min-w-0 flex-1">
+                  <div className="text-xs font-montserrat text-blue uppercase tracking-wide">Score</div>
+                  <div className="text-sm sm:text-lg font-montserrat font-bold text-dark-blue truncate">{gameState.score.toLocaleString()}</div>
+                </div>
+              </div>
+              <div className="flex items-center space-x-2 bg-gradient-to-br from-white to-slate rounded-sm p-2 sm:p-3 border border-blue shadow-md min-w-0">
+                <MousePointer className="w-4 h-4 sm:w-5 sm:h-5 text-sky-blue flex-shrink-0" />
+                <div className="min-w-0 flex-1">
+                  <div className="text-xs font-montserrat text-blue uppercase tracking-wide">Moves</div>
+                  <div className="text-sm sm:text-lg font-montserrat font-bold text-dark-blue truncate">{gameState.moves}</div>
+                </div>
+              </div>
+              <div className="flex items-center space-x-2 bg-gradient-to-br from-white to-slate rounded-sm p-2 sm:p-3 border border-blue shadow-md min-w-0">
+                <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-dark-blue flex-shrink-0" />
+                <div className="min-w-0 flex-1">
+                  <div className="text-xs font-montserrat text-blue uppercase tracking-wide">Time</div>
+                  <div className="text-sm sm:text-lg font-montserrat font-bold text-dark-blue truncate">{formatTime(gameState.timeElapsed)}</div>
+                </div>
+              </div>
+              <div className="flex items-center space-x-2 bg-gradient-to-br from-white to-slate rounded-sm p-2 sm:p-3 border border-blue shadow-md min-w-0">
+                <Target className="w-4 h-4 sm:w-5 sm:h-5 text-blue flex-shrink-0" />
+                <div className="min-w-0 flex-1">
+                  <div className="text-xs font-montserrat text-blue uppercase tracking-wide">Progress</div>
+                  <div className="text-sm sm:text-lg font-montserrat font-bold text-dark-blue truncate">{matchedPairs}/{totalPairs}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Progress Bar */}
+          <div>
+            <h3 className="text-lg font-montserrat font-bold text-dark-blue mb-3">Progress</h3>
+            <ProgressBar
+              current={matchedPairs}
+              total={totalPairs}
+              label="Pairs Matched"
+            />
+          </div>
+
+          {/* Audio Controls */}
+          <div>
+            <h3 className="text-lg font-montserrat font-bold text-dark-blue mb-3">Audio Settings</h3>
+            <div className="overflow-hidden">
               <AudioControls 
                 showBackgroundMusicToggle={true}
                 showVolumeSlider={true}
-                className="justify-center"
+                className="justify-center flex-wrap"
               />
             </div>
           </div>
-          
-          {/* Card Grid */}
-          <div className="flex-1 flex items-center justify-center p-4">
-          <CardGrid
-            cards={gameState.cards}
-            onCardClick={onCardClick}
-            disabled={isGameDisabled}
-            gridCols={gridCols}
-          />
-        </div>
-          
-          {/* Progress Section */}
-          <div className="bg-gradient-to-r from-slate via-white to-slate-200 border-t-2 border-blue p-3 sm:p-6 shadow-lg">
-            <div className="">
-              <ProgressBar
-                current={matchedPairs}
-                total={totalPairs}
-                label="Progress"
-              />
-            </div>
+
+          {/* Game Actions */}
+          <div className="space-y-3">
+            <Button
+              onClick={() => {
+                setShowGameMenu(false);
+                onPause();
+              }}
+              variant="outline"
+              size="lg"
+              className="w-full"
+            >
+              PAUSE GAME
+            </Button>
+            <Button
+              onClick={() => {
+                setShowGameMenu(false);
+                onHome();
+              }}
+              variant="outline"
+              size="lg"
+              className="w-full"
+            >
+              EXIT TO HOME
+            </Button>
           </div>
         </div>
-      
+      </Modal>
+
       {/* Pause Modal */}
       <Modal
         isOpen={showPauseModal}
