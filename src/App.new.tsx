@@ -18,10 +18,8 @@ export default function AppNew() {
     const [currentView, setCurrentView] = useState<GameView>('game');
 
     return (
-        <div>
-            <div>
-                {renderGameView(currentView)}
-            </div>
+        <div className="min-h-screen grid place-items-center">
+            {renderGameView(currentView)}
         </div>
 
     )
@@ -29,18 +27,20 @@ export default function AppNew() {
 
 function Welcome() {
     return (
-        <div>
+        <div className="min-w-[320px]">
             <h1>Lucide Memory</h1>
             <p>Welcome to the Lucide Memory game!</p>
             <p>Lorem ipsum dolor sit amet.</p>
-            <button>START</button>
+            <div className="flex flex-col gap-4">
+                <button>START</button>
+            </div>
         </div>
     );
 }
 
 function PlayerDashboard() {
     return (
-        <div>
+        <div className="min-w-[320px]">
             <h1>Player Dashboard</h1>
             <p>View your progress and stats here.</p>
             <div className="grid grid-cols-2 gap-4">
@@ -65,7 +65,7 @@ function PlayerDashboard() {
 
 function GameScreen() {
     return (
-        <div>
+        <div className="min-w-[320px]">
             <div className="grid grid-cols-2 gap-4">
                 <div>
                     Level
