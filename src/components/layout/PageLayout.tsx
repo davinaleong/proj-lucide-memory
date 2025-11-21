@@ -13,20 +13,19 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
 }) => {
   if (variant === 'fullscreen') {
     return (
-      <div className={`min-h-screen w-full bg-white flex flex-col ${className}`}>
-        {children}
+      <div className={`app-container ${className}`}>
+        <div className="content-container-fullscreen">
+          {children}
+        </div>
       </div>
     );
   }
 
   // Centered variant for welcome and dashboard pages
-  // Background fills entire viewport, content is centered within
+  // Uses flexible container system that adjusts to any width
   return (
-    <div className={`min-h-screen w-full flex items-center justify-center p-4 ${className}`} 
-         style={{
-           background: 'linear-gradient(135deg, #F1F5F9 0%, #e2e8f0 100%)'
-         }}>
-      <div className="bg-white rounded-xl shadow-2xl w-full p-4 sm:p-8 border-2 border-blue backdrop-blur-sm">
+    <div className={`app-container p-[1em] ${className}`}>
+      <div className="content-container-centered">
         {children}
       </div>
     </div>

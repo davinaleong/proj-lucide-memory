@@ -78,7 +78,189 @@
   animation: slideIn 0.3s ease-out;
 }
 
-/* Layout system ensures consistent width and centering behavior */
+#root {
+  width: 100%;
+}
+
+/* Flexible layout system - adjusts to any width */
+.app-container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Content containers that adjust to any width */
+.content-container-centered {
+    width: 100%;
+    min-width: 320px;  /* Minimum for mobile */
+    max-width: 600px;  /* Maximum for readability */
+    margin: 0 auto;
+    padding: 1.5rem;
+    box-sizing: border-box;
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border: 2px solid var(--color-blue);
+    backdrop-filter: blur(8px);
+}
+
+.content-container-fullscreen {
+    width: 100%;
+    min-width: 320px;
+    max-width: 600px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+/* Responsive grid systems */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    width: 100%;
+}
+
+/* Game grid with responsive columns */
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-cols, 4), 1fr);
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.5rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+    .game-grid {
+        gap: 0.75rem;
+        padding: 1rem;
+    }
+}
+
+.game-grid-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    flex: 1;
+}
+
+.game-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    width: 100%;
+    aspect-ratio: 1;
+    max-width: 400px;
+}
+
+/* Button system that scales */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+/* Control layouts that flex with width */
+.control-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.control-center {
+    flex: 1;
+    text-align: center;
+    min-width: fit-content;
+}
+
+/* Audio controls that adapt to width */
+.audio-controls-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+/* Progress container */
+.progress-section {
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--color-background) 0%, var(--color-surface) 100%);
+    border-top: 2px solid var(--color-blue);
+}
+
+/* Responsive breakpoints */
+@media (min-width: 640px) {
+    .content-container-centered {
+        padding: 2rem;
+        max-width: 500px;
+    }
+    
+    .content-container-fullscreen {
+        max-width: 500px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .button-group {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .game-cards-grid {
+        gap: 0.75rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .content-container-centered {
+        max-width: 600px;
+    }
+    
+    .content-container-fullscreen {
+        max-width: 600px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .game-cards-grid {
+        max-width: 450px;
+        gap: 0.75rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .content-container-centered {
+        max-width: 700px;
+    }
+    
+    .content-container-fullscreen {
+        max-width: 700px;
+    }
+    
+    .game-cards-grid {
+        max-width: 500px;
+        gap: 1rem;
+    }
+}
 
 /* Print styles */
 @media print {

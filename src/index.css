@@ -49,6 +49,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #F1F5F9 0%, #e2e8f0 100%);
 }
 
 h1 {

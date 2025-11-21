@@ -17,13 +17,10 @@ export const CardGrid: React.FC<CardGridProps> = ({
 }) => {
   return (
     <div 
-      className={`
-        grid gap-2 w-full p-2
-        sm:gap-3 sm:p-4
-      `}
+      className="game-grid"
       style={{
-        gridTemplateColumns: `repeat(${gridCols}, 1fr)`
-      }}
+        '--grid-cols': gridCols
+      } as React.CSSProperties}
     >
       {cards.map((card) => (
         <Card
